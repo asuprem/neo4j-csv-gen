@@ -35,7 +35,6 @@ def par_check(i_counter, i_str, obj_read):
                 temp_json = json.loads(obj_read+i_str[:idx+1])
                 return i_counter, i_str[:idx+1], par_iterate(i_str[idx+1:])
             except ValueError:
-                pdb.set_trace()
                 i_counter+=1
     return i_counter, i_str, ''
 
@@ -55,9 +54,9 @@ def json_extractor(j_obj):
                                 (obj_integrity[item][1][0] if obj_integrity[item][1] else '') + ',' + \
                                 (obj_integrity[item][2][0] if obj_integrity[item][2] else '') + '\n').encode('ascii', 'ignore'))
             except IndexError:
-                pdb.set_trace()
+                continue
             except UnicodeEncodeError:
-                pdb.set_trace()
+                continue
     
     for i in range(len(j_obj['relationships'])):
             rel_integrity[j_obj['relationships'][i]['relationship_id']] = [j_obj['relationships'][i]['relationship_id'], \
