@@ -1,6 +1,5 @@
 from __future__ import print_function
-import json
-import os, sys
+import json, os, sys
 _PUSH = '{'
 _POP = '}'
 
@@ -79,17 +78,15 @@ def json_extractor(j_obj):
 while True:
     now_read=parse_file.read(chunk_size)
     parse_read = stream_read + (now_read if now_read else '')        
-    
+    # If there is nothing left to parse
     if not parse_read:
         break
     
     obj_counter, json_obj, stream_read  = par_check(obj_counter, parse_read, obj_read)
     obj_read = obj_read + json_obj
 
-    #print(len(obj_read))
     if obj_counter == 0:
         find_counter+=1
-        #pdb.set_trace()
         print("Valid object found: "+str(find_counter), end='\r')
         json_extractor(obj_read)        
         obj_read=''
