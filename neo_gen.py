@@ -1,5 +1,5 @@
 from __future__ import print_function
-import json, os, sys
+import json, sys
 _PUSH = '{'
 _POP = '}'
 
