@@ -49,7 +49,7 @@ def json_extractor(j_obj):
                                                            j_obj['objects'][i]['synsets'], \
                                                            j_obj['objects'][i]['names'], \
                                                            (j_obj['objects'][i]['attributes'] if 'attributes' in j_obj['objects'][i] else [])]
-    with open("objects-small.vgm", 'a+') as obj_file:
+    with open("objects.vgm", 'a+') as obj_file:
         for item in obj_integrity:
             try:
                 obj_file.write( (str(item) + ',' + \
@@ -60,7 +60,7 @@ def json_extractor(j_obj):
                 continue
             except UnicodeEncodeError:
                 continue
-            with open("attributes-small.vgm", 'a+') as attr_file:
+            with open("attributes.vgm", 'a+') as attr_file:
                 
                     for attribute in obj_integrity[item][3]:
                         try:
@@ -75,7 +75,7 @@ def json_extractor(j_obj):
                                                            j_obj['relationships'][i]['object_id'], \
                                                            j_obj['relationships'][i]['subject_id'], \
                                                            j_obj['relationships'][i]['predicate']]
-    with open("relations-small.vgm", 'a+') as rel_file:
+    with open("relations.vgm", 'a+') as rel_file:
         for item in rel_integrity:
             try:
                 rel_file.write( (str(item) + ',' + \
@@ -106,6 +106,7 @@ while True:
         print("Valid object found: "+str(find_counter), end='\r')
         json_extractor(obj_read)        
         obj_read=''
-    if find_counter > 5:
-        break
+    #This exists for debugging purposes -> to early stop the files for quicker verification
+    #if find_counter > 5:
+    #    break
 parse_file.close()
