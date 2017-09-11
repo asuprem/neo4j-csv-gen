@@ -1,5 +1,5 @@
 from __future__ import print_function
-import json, sys
+import json, sys, pdb
 _PUSH = '{'
 _POP = '}'
 
@@ -43,37 +43,54 @@ def json_extractor(j_obj):
     j_obj = json.loads(j_obj)
     obj_integrity = {}
     rel_integrity = {}
+    attr_integrity = {}
     for i in range(len(j_obj['objects'])):
         obj_integrity[j_obj['objects'][i]['object_id']] = [j_obj['objects'][i]['object_id'], \
                                                            j_obj['objects'][i]['synsets'], \
-                                                           j_obj['objects'][i]['names']]
-    with open("objects.vgm", 'a+') as obj_file:
+                                                           j_obj['objects'][i]['names'], \
+                                                           (j_obj['objects'][i]['attributes'] if 'attributes' in j_obj['objects'][i] else [])]
+    with open("objects-small.vgm", 'a+') as obj_file:
         for item in obj_integrity:
             try:
                 obj_file.write( (str(item) + ',' + \
                                 (obj_integrity[item][1][0] if obj_integrity[item][1] else '') + ',' + \
-                                (obj_integrity[item][2][0] if obj_integrity[item][2] else '') + '\n').encode('ascii', 'ignore'))
+                                (obj_integrity[item][2][0] if obj_integrity[item][2] else '') + ',' + \
+                                str(j_obj['image_id']) + '\n').encode('ascii', 'ignore'))
             except IndexError:
                 continue
             except UnicodeEncodeError:
                 continue
-    
+            with open("attributes-small.vgm", 'a+') as attr_file:
+                
+                    for attribute in obj_integrity[item][3]:
+                        try:
+                            attr_file.write((str(item) + ',' + \
+                                        attribute + '\n').encode('ascii', 'ignore'))
+                        except UnicodeEncodeError:
+                            continue
+            
     for i in range(len(j_obj['relationships'])):
             rel_integrity[j_obj['relationships'][i]['relationship_id']] = [j_obj['relationships'][i]['relationship_id'], \
                                                            j_obj['relationships'][i]['synsets'], \
                                                            j_obj['relationships'][i]['object_id'], \
                                                            j_obj['relationships'][i]['subject_id'], \
                                                            j_obj['relationships'][i]['predicate']]
-    with open("relations.vgm", 'a+') as rel_file:
+    with open("relations-small.vgm", 'a+') as rel_file:
         for item in rel_integrity:
-            rel_file.write( (str(item) + ',' + \
-                            str(rel_integrity[item][3]) + ',' + \
-                            str(rel_integrity[item][2]) + ',' + \
-                            (rel_integrity[item][1][0] if rel_integrity[item][1] else '') + ',' + \
-                            (rel_integrity[item][4] if rel_integrity[item][2] else '')+','+\
-                            str(find_counter) + '\n').encode('ascii', 'ignore'))
-    
+            try:
+                rel_file.write( (str(item) + ',' + \
+                                str(rel_integrity[item][3]) + ',' + \
+                                str(rel_integrity[item][2]) + ',' + \
+                                (rel_integrity[item][1][0] if rel_integrity[item][1] else '') + ',' + \
+                                (rel_integrity[item][4] if rel_integrity[item][2] else '')+','+\
+                                str(find_counter) + ',' + \
+                                str(j_obj['image_id']) + '\n').encode('ascii', 'ignore'))
+            except IndexError:
+                continue
+            except UnicodeEncodeError:
+                continue
 
+    
 while True:
     now_read=parse_file.read(chunk_size)
     parse_read = stream_read + (now_read if now_read else '')        
@@ -89,4 +106,6 @@ while True:
         print("Valid object found: "+str(find_counter), end='\r')
         json_extractor(obj_read)        
         obj_read=''
+    if find_counter > 5:
+        break
 parse_file.close()
