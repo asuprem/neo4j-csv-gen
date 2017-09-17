@@ -95,6 +95,7 @@ def json_extractor(j_obj, split_name, split_idx):
                 continue
 
 def main():
+    start = time.time()
     # Set up the split characteristics, and the file names
     file_name = sys.argv[1]
     if len(sys.argv) == 2:
@@ -133,7 +134,7 @@ def main():
         if obj_counter == 0:
             find_counter+=1
             if find_counter%500 == 0:
-                print("Valid object found: "+str(find_counter) +  '  at ' + time.time(), end='\r')
+                print("Valid object found: "+str(find_counter) +  '  at ' + str(int(time.time()-start)), end='\r')
             json_extractor(obj_read, split_name, split_idx)        
             obj_read=''
         
