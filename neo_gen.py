@@ -134,7 +134,7 @@ def main():
         if obj_counter == 0:
             find_counter+=1
             if find_counter%500 == 0:
-                print("Valid object found: "+str(find_counter) +  '  at ' + str(int(time.time()-start)), end='\r')
+                print("Valid object found: "+str(find_counter) +  '  at ' + str(int(time.time()-start)), end='\n')
             json_extractor(obj_read, split_name, split_idx)        
             obj_read=''
         
@@ -151,8 +151,8 @@ def main():
                 copy_func(src_file[file_idx], dst_file[file_idx])
             split_idx+=1
         #This exists for debugging purposes -> to early stop the files for quicker verification
-        if find_counter > 1000:
-            break
+        #if find_counter > 1000:
+        #    break
     parse_file.close()
 
 if __name__ == '__main__':
