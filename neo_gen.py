@@ -6,7 +6,8 @@
 # python /path/to/neo_gen.py path/to/[scene_graphs.json] ['splitsize'] ['prefixes']
 
 from __future__ import print_function
-import json, sys, pdb
+from shutil import copy2 as copy_func
+import json, sys, pdb, os, time
 _PUSH = '{'
 _POP = '}'
 
@@ -36,17 +37,23 @@ def par_check(i_counter, i_str, obj_read):
     return i_counter, i_str, ''
 
 
-def json_extractor(j_obj):
+def json_extractor(j_obj, split_name, split_idx):
+    rel_file_name   = split_name[split_idx] +   '_relations.vgm'
+    obj_file_name   = split_name[split_idx] +   '_objects.vgm'
+    attr_file_name  = split_name[split_idx] +   '_attributes.vgm'
+
     j_obj = json.loads(j_obj)
-    obj_integrity = {}
-    rel_integrity = {}
-    attr_integrity = {}
+
+    obj_integrity   = {}
+    rel_integrity   = {}
+    attr_integrity  = {}
+
     for i in range(len(j_obj['objects'])):
         obj_integrity[j_obj['objects'][i]['object_id']] = [j_obj['objects'][i]['object_id'], \
                                                            j_obj['objects'][i]['synsets'], \
                                                            j_obj['objects'][i]['names'], \
                                                            (j_obj['objects'][i]['attributes'] if 'attributes' in j_obj['objects'][i] else [])]
-    with open("objects_med.vgm", 'a+') as obj_file:
+    with open(obj_file_name, 'a+') as obj_file:
         for item in obj_integrity:
             try:
                 obj_file.write( (str(item) + ',' + \
@@ -57,7 +64,7 @@ def json_extractor(j_obj):
                 continue
             except UnicodeEncodeError:
                 continue
-            with open("attributes_med.vgm", 'a+') as attr_file:
+            with open(attr_file_name, 'a+') as attr_file:
                 
                     for attribute in obj_integrity[item][3]:
                         try:
@@ -72,7 +79,7 @@ def json_extractor(j_obj):
                                                            j_obj['relationships'][i]['object_id'], \
                                                            j_obj['relationships'][i]['subject_id'], \
                                                            j_obj['relationships'][i]['predicate']]
-    with open("relations_med.vgm", 'a+') as rel_file:
+    with open(rel_file_name, 'a+') as rel_file:
         for item in rel_integrity:
             try:
                 rel_file.write( (str(item) + ',' + \
@@ -80,7 +87,7 @@ def json_extractor(j_obj):
                                 str(rel_integrity[item][2]) + ',' + \
                                 (rel_integrity[item][1][0] if rel_integrity[item][1] else '') + ',' + \
                                 (rel_integrity[item][4] if rel_integrity[item][2] else '')+','+\
-                                str(find_counter) + ',' + \
+                                #str(find_counter) + ',' + \
                                 str(j_obj['image_id']) + '\n').encode('ascii', 'ignore'))
             except IndexError:
                 continue
@@ -88,7 +95,7 @@ def json_extractor(j_obj):
                 continue
 
 def main():
-
+    # Set up the split characteristics, and the file names
     file_name = sys.argv[1]
     if len(sys.argv) == 2:
         split_size = ['f']
@@ -99,13 +106,19 @@ def main():
     if len(sys.argv) == 4:
         split_size=sys.argv[2].split(',')
         split_name=sys.argv[3].split(',')
+        assert(len(split_size) == len(split_name))
+    split_size = [int(item) if item.isdigit() else item for item in split_size]
     chunk_size, find_counter, split_idx = 5000,0,0
     parse_file = open(file_name)
     #Read the first character and ignore
     parse_file.read(1)
     obj_read, stream_read, obj_counter = '','',0
+    # Delete all vgm files in current folder:
+    filelist = [ f for f in os.listdir(".") if f.endswith(".vgm") ]
+    for f in filelist:
+        os.remove(f)
     
-    pdb.set_trace()
+    #pdb.set_trace()
 
     while True:
         now_read=parse_file.read(chunk_size)
@@ -119,12 +132,24 @@ def main():
 
         if obj_counter == 0:
             find_counter+=1
-            print("Valid object found: "+str(find_counter), end='\r')
-            json_extractor(obj_read)        
+            if find_counter%500 == 0:
+                print("Valid object found: "+str(find_counter) +  '  at ' + time.time(), end='\r')
+            json_extractor(obj_read, split_name, split_idx)        
             obj_read=''
         
         #This exists for debugging purposes -> to early stop the files for quicker verification
         # Now if we hit the threshold, we close the file, copy it, open the new one, and continue on the new one.
+        # code for file_logic
+        if split_size[split_idx] != 'f' and find_counter == split_size[split_idx]:
+            #i.e. we need to copy the existing file into a new one
+            base_file = ['_relations.vgm', '_objects.vgm', '_attributes.vgm']
+            src_file = [split_name[split_idx] + f_name for f_name in base_file]
+            dst_file = [split_name[split_idx+1] + f_name for f_name in base_file]
+
+            for file_idx,file_items in enumerate(src_file):
+                copy_func(src_file[file_idx], dst_file[file_idx])
+            split_idx+=1
+
         if find_counter > 100:
             break
     parse_file.close()
