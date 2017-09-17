@@ -1,17 +1,14 @@
+# This code generates the csv file to import with neo4j for the Visual Genome Dataset.
+# Command for running:
+# [scene_graphs.json] is either scene_graphs.json from VisualGenome v4 or similarly structured file.
+#['splitsize'] is a comma-separated string dnoting how to split the output files: '100,1000,f'
+#['prefixes'] is a comma separated string for prefixes: 'nano, small, full'
+# python /path/to/neo_gen.py path/to/[scene_graphs.json] ['splitsize'] ['prefixes']
+
 from __future__ import print_function
 import json, sys, pdb
 _PUSH = '{'
 _POP = '}'
-
-file_name = sys.argv[1]
-chunk_size = 5000
-find_counter = 0
-parse_file = open(file_name)
-#Read the first character and ignore
-parse_file.read(1)
-obj_read = ''
-stream_read = ''
-obj_counter = 0
 
 
 def par_iterate(par_i_str):
@@ -90,23 +87,47 @@ def json_extractor(j_obj):
             except UnicodeEncodeError:
                 continue
 
-    
-while True:
-    now_read=parse_file.read(chunk_size)
-    parse_read = stream_read + (now_read if now_read else '')        
-    # If there is nothing left to parse
-    if not parse_read:
-        break
-    
-    obj_counter, json_obj, stream_read  = par_check(obj_counter, parse_read, obj_read)
-    obj_read = obj_read + json_obj
+def main():
 
-    if obj_counter == 0:
-        find_counter+=1
-        print("Valid object found: "+str(find_counter), end='\r')
-        json_extractor(obj_read)        
-        obj_read=''
-    #This exists for debugging purposes -> to early stop the files for quicker verification
-    if find_counter > 100:
-        break
-parse_file.close()
+    file_name = sys.argv[1]
+    if len(sys.argv) == 2:
+        split_size = ['f']
+        split_name=['full']
+    if len(sys.argv) == 3:
+        split_size=sys.argv[2].split(',')
+        split_name=sys.argv[2].split(',')
+    if len(sys.argv) == 4:
+        split_size=sys.argv[2].split(',')
+        split_name=sys.argv[3].split(',')
+    chunk_size, find_counter, split_idx = 5000,0,0
+    parse_file = open(file_name)
+    #Read the first character and ignore
+    parse_file.read(1)
+    obj_read, stream_read, obj_counter = '','',0
+    
+    pdb.set_trace()
+
+    while True:
+        now_read=parse_file.read(chunk_size)
+        parse_read = stream_read + (now_read if now_read else '')        
+        # If there is nothing left to parse
+        if not parse_read:
+            break
+        
+        obj_counter, json_obj, stream_read  = par_check(obj_counter, parse_read, obj_read)
+        obj_read = obj_read + json_obj
+
+        if obj_counter == 0:
+            find_counter+=1
+            print("Valid object found: "+str(find_counter), end='\r')
+            json_extractor(obj_read)        
+            obj_read=''
+        
+        #This exists for debugging purposes -> to early stop the files for quicker verification
+        # Now if we hit the threshold, we close the file, copy it, open the new one, and continue on the new one.
+        if find_counter > 100:
+            break
+    parse_file.close()
+
+if __name__ == '__main__':
+    main()
