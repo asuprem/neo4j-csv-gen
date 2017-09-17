@@ -137,7 +137,7 @@ def main():
             json_extractor(obj_read, split_name, split_idx)        
             obj_read=''
         
-        #This exists for debugging purposes -> to early stop the files for quicker verification
+        
         # Now if we hit the threshold, we close the file, copy it, open the new one, and continue on the new one.
         # code for file_logic
         if split_size[split_idx] != 'f' and find_counter == split_size[split_idx]:
@@ -149,8 +149,8 @@ def main():
             for file_idx,file_items in enumerate(src_file):
                 copy_func(src_file[file_idx], dst_file[file_idx])
             split_idx+=1
-
-        if find_counter > 100:
+        #This exists for debugging purposes -> to early stop the files for quicker verification
+        if find_counter > 1000:
             break
     parse_file.close()
 
