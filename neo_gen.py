@@ -123,7 +123,7 @@ def json_extractor(j_obj, split_name, split_idx):
                                 str(item[2]) + ',' + \
                                 str(item[1]) + ',' + \
                                 (item[0][0] if item[0] else '') + ',' + \
-                                (item[4] if item[4] else '')+','+\
+                                (item[3] if item[3] else '')+','+\
                                 #str(find_counter) + ',' + \
                                 str(j_obj['image_id']) + '\n').encode('ascii', 'ignore'))
                 #rel_file.write( (str(item) + ',' + \
@@ -134,7 +134,7 @@ def json_extractor(j_obj, split_name, split_idx):
                 #                #str(find_counter) + ',' + \
                 #                str(j_obj['image_id']) + '\n').encode('ascii', 'ignore'))
             except IndexError:
-                continue
+                pdb.set_trace()
             except UnicodeEncodeError:
                 continue
 
