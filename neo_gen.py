@@ -75,11 +75,11 @@ def json_extractor(j_obj, split_name, split_idx):
                             continue
             
     for i in range(len(j_obj['relationships'])):
-            rel_integrity[j_obj['relationships'][i]['relationship_id']] = [j_obj['relationships'][i]['relationship_id'], \
-                                                           j_obj['relationships'][i]['synsets'], \
-                                                           j_obj['relationships'][i]['object_id'], \
-                                                           j_obj['relationships'][i]['subject_id'], \
-                                                           j_obj['relationships'][i]['predicate']]
+            #rel_integrity[j_obj['relationships'][i]['relationship_id']] = [j_obj['relationships'][i]['relationship_id'], \
+            #                                               j_obj['relationships'][i]['synsets'], \
+            #                                               j_obj['relationships'][i]['object_id'], \
+            #                                               j_obj['relationships'][i]['subject_id'], \
+            #                                               j_obj['relationships'][i]['predicate']]
             in_tuple = (tuple(j_obj['relationships'][i]['synsets']), \
                         j_obj['relationships'][i]['object_id'], \
                         j_obj['relationships'][i]['subject_id'], \
@@ -91,6 +91,7 @@ def json_extractor(j_obj, split_name, split_idx):
     #    # + str(rel_integrity[item][4]).ljust(10) + str(rel_integrity[item][2]).ljust(8) + ' ' + rel_integrity[item][1])
     #for item in rel_integrity_tuple:
     #    print(str(item) + ' ' + str(rel_integrity_tuple[item]).ljust(8))
+    '''
     print('---------------------------------')
     print (str(len(rel_integrity)) + '   ' + str(len(rel_integrity_tuple)))
     if len(rel_integrity) != len(rel_integrity_tuple):
@@ -114,17 +115,24 @@ def json_extractor(j_obj, split_name, split_idx):
 
         
         pdb.set_trace() 
-    
+        '''
     with open(rel_file_name, 'a+') as rel_file:
-        for item in rel_integrity:
+        for item in rel_integrity_tuple:
             try:
-                rel_file.write( (str(item) + ',' + \
-                                str(rel_integrity[item][3]) + ',' + \
-                                str(rel_integrity[item][2]) + ',' + \
-                                (rel_integrity[item][1][0] if rel_integrity[item][1] else '') + ',' + \
-                                (rel_integrity[item][4] if rel_integrity[item][2] else '')+','+\
+                rel_file.write( (str(rel_integrity_tuple[item]) + ',' + \
+                                str(item[2]) + ',' + \
+                                str(item[1]) + ',' + \
+                                (item[0][0] if item[0] else '') + ',' + \
+                                (item[4] if item[4] else '')+','+\
                                 #str(find_counter) + ',' + \
                                 str(j_obj['image_id']) + '\n').encode('ascii', 'ignore'))
+                #rel_file.write( (str(item) + ',' + \
+                #                str(rel_integrity[item][3]) + ',' + \
+                #                str(rel_integrity[item][2]) + ',' + \
+                #                (rel_integrity[item][1][0] if rel_integrity[item][1] else '') + ',' + \
+                #                (rel_integrity[item][4] if rel_integrity[item][2] else '')+','+\
+                #                #str(find_counter) + ',' + \
+                #                str(j_obj['image_id']) + '\n').encode('ascii', 'ignore'))
             except IndexError:
                 continue
             except UnicodeEncodeError:
