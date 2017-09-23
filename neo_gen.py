@@ -46,6 +46,7 @@ def json_extractor(j_obj, split_name, split_idx):
 
     obj_integrity   = {}
     rel_integrity   = {}
+    rel_integrity_tuple = {}
     attr_integrity  = {}
 
     for i in range(len(j_obj['objects'])):
@@ -79,6 +80,41 @@ def json_extractor(j_obj, split_name, split_idx):
                                                            j_obj['relationships'][i]['object_id'], \
                                                            j_obj['relationships'][i]['subject_id'], \
                                                            j_obj['relationships'][i]['predicate']]
+            in_tuple = (tuple(j_obj['relationships'][i]['synsets']), \
+                        j_obj['relationships'][i]['object_id'], \
+                        j_obj['relationships'][i]['subject_id'], \
+                        j_obj['relationships'][i]['predicate'])
+            rel_integrity_tuple[in_tuple] = j_obj['relationships'][i]['relationship_id']
+
+    #for item in rel_integrity:
+    #    print(str(rel_integrity[item][3]).ljust(8) + rel_integrity[item][4].ljust(15) + ' ' +  str(rel_integrity[item][2]).ljust(8) + '  ' + (rel_integrity[item][1][0] if rel_integrity[item][1] else ''))
+    #    # + str(rel_integrity[item][4]).ljust(10) + str(rel_integrity[item][2]).ljust(8) + ' ' + rel_integrity[item][1])
+    #for item in rel_integrity_tuple:
+    #    print(str(item) + ' ' + str(rel_integrity_tuple[item]).ljust(8))
+    print('---------------------------------')
+    print (str(len(rel_integrity)) + '   ' + str(len(rel_integrity_tuple)))
+    if len(rel_integrity) != len(rel_integrity_tuple):
+        pdb.set_trace()
+        for item in rel_integrity: 
+            print(str(rel_integrity[item][3]).ljust(8) + rel_integrity[item][4].ljust(15) + ' ' +  str(rel_integrity[item][2]).ljust(8) + '  ' + (rel_integrity[item][1][0] if rel_integrity[item][1] else '').ljust(15) + '  ' + str(item))
+             #+ str(rel_integrity[item][4]).ljust(10) + str(rel_integrity[item][2]).ljust(8) + ' ' + rel_integrity[item][1])
+        print('####')
+        for item in rel_integrity_tuple:
+            print(str(item[2]).ljust(8) + item[3].ljust(15) + ' ' +  str(item[1]).ljust(8) + '  ' + (item[0][0] if item[0] else '').ljust(15) + str(rel_integrity_tuple[item]))
+        print('####')
+        print('####')
+        for item in rel_integrity:
+            in_tuple = (tuple(rel_integrity[item][1]), \
+                        rel_integrity[item][2], \
+                        rel_integrity[item][3], \
+                        rel_integrity[item][4])
+            if item!=rel_integrity_tuple[in_tuple]:
+                print (str(item) + '    ' + str(in_tuple))
+            
+
+        
+        pdb.set_trace() 
+    
     with open(rel_file_name, 'a+') as rel_file:
         for item in rel_integrity:
             try:
