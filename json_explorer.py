@@ -10,29 +10,20 @@ import vgm_utils
 _PUSH = '{'
 _POP = '}'
 
-def obj_update(obj_read, o_file, extract_type):
+def obj_update(obj_read):
     j_obj = json.loads(obj_read)
-    j_synsets =  [i['synsets'] for i in j_obj[extract_type]]
-    synset_write=''
-    for synset_list in j_synsets:
-        if synset_list:
-            for synset in synset_list:
-                o_file.write(synset+'\n')
+    pdb.set_trace()
 
 def main():
     start = time.time()
     # Set up the split characteristics, and the file names
     file_name = sys.argv[1]
-    extract_type = sys.argv[2]
-    chunk_size, find_counter = int(sys.argv[3]),0
+    chunk_size, find_counter = int(sys.argv[2]),0
     parse_file = open(file_name)
     #Read the first character and ignore
     parse_file.read(1)
     obj_read, stream_read, obj_counter = '','',0
-    f_name = extract_type + '_synsets_all.vgm'
-    o_file = open(f_name, 'w')
-    o_file.close()
-    o_file = open(f_name,'a+')
+    
     # Delete all vgm files in current folder:
     
     #pdb.set_trace()
@@ -49,7 +40,7 @@ def main():
 
         if obj_counter == 0:
             find_counter+=1
-            obj_update(obj_read, o_file, extract_type)
+            obj_update(obj_read)
             if find_counter%500 == 0:
                 print("Valid object found: "+str(find_counter) +  '  at ' + str(int(time.time()-start)), end='\n')
             obj_read=''

@@ -8,10 +8,11 @@
 from __future__ import print_function
 from shutil import copy2 as copy_func
 import json, sys, pdb, os, time
+import vgm_utils
 _PUSH = '{'
 _POP = '}'
 
-
+'''
 def par_iterate(par_i_str):
     for idx,item in enumerate(par_i_str):
         if item == '{':
@@ -35,7 +36,7 @@ def par_check(i_counter, i_str, obj_read):
             except ValueError:
                 i_counter+=1
     return i_counter, i_str, ''
-
+'''
 
 def json_extractor(j_obj, split_name, split_idx):
     rel_file_name   = split_name[split_idx] +   '_relations.vgm'
@@ -86,36 +87,7 @@ def json_extractor(j_obj, split_name, split_idx):
                         j_obj['relationships'][i]['predicate'])
             rel_integrity_tuple[in_tuple] = j_obj['relationships'][i]['relationship_id']
 
-    #for item in rel_integrity:
-    #    print(str(rel_integrity[item][3]).ljust(8) + rel_integrity[item][4].ljust(15) + ' ' +  str(rel_integrity[item][2]).ljust(8) + '  ' + (rel_integrity[item][1][0] if rel_integrity[item][1] else ''))
-    #    # + str(rel_integrity[item][4]).ljust(10) + str(rel_integrity[item][2]).ljust(8) + ' ' + rel_integrity[item][1])
-    #for item in rel_integrity_tuple:
-    #    print(str(item) + ' ' + str(rel_integrity_tuple[item]).ljust(8))
-    '''
-    print('---------------------------------')
-    print (str(len(rel_integrity)) + '   ' + str(len(rel_integrity_tuple)))
-    if len(rel_integrity) != len(rel_integrity_tuple):
-        pdb.set_trace()
-        for item in rel_integrity: 
-            print(str(rel_integrity[item][3]).ljust(8) + rel_integrity[item][4].ljust(15) + ' ' +  str(rel_integrity[item][2]).ljust(8) + '  ' + (rel_integrity[item][1][0] if rel_integrity[item][1] else '').ljust(15) + '  ' + str(item))
-             #+ str(rel_integrity[item][4]).ljust(10) + str(rel_integrity[item][2]).ljust(8) + ' ' + rel_integrity[item][1])
-        print('####')
-        for item in rel_integrity_tuple:
-            print(str(item[2]).ljust(8) + item[3].ljust(15) + ' ' +  str(item[1]).ljust(8) + '  ' + (item[0][0] if item[0] else '').ljust(15) + str(rel_integrity_tuple[item]))
-        print('####')
-        print('####')
-        for item in rel_integrity:
-            in_tuple = (tuple(rel_integrity[item][1]), \
-                        rel_integrity[item][2], \
-                        rel_integrity[item][3], \
-                        rel_integrity[item][4])
-            if item!=rel_integrity_tuple[in_tuple]:
-                print (str(item) + '    ' + str(in_tuple))
-            
-
-        
-        pdb.set_trace() 
-        '''
+    
     with open(rel_file_name, 'a+') as rel_file:
         for item in rel_integrity_tuple:
             try:
@@ -126,13 +98,7 @@ def json_extractor(j_obj, split_name, split_idx):
                                 (item[3] if item[3] else '')+','+\
                                 #str(find_counter) + ',' + \
                                 str(j_obj['image_id']) + '\n').encode('ascii', 'ignore'))
-                #rel_file.write( (str(item) + ',' + \
-                #                str(rel_integrity[item][3]) + ',' + \
-                #                str(rel_integrity[item][2]) + ',' + \
-                #                (rel_integrity[item][1][0] if rel_integrity[item][1] else '') + ',' + \
-                #                (rel_integrity[item][4] if rel_integrity[item][2] else '')+','+\
-                #                #str(find_counter) + ',' + \
-                #                str(j_obj['image_id']) + '\n').encode('ascii', 'ignore'))
+    
             except IndexError:
                 pdb.set_trace()
             except UnicodeEncodeError:
@@ -159,9 +125,9 @@ def main():
     parse_file.read(1)
     obj_read, stream_read, obj_counter = '','',0
     # Delete all vgm files in current folder:
-    filelist = [ f for f in os.listdir(".") if f.endswith(".vgm") ]
-    for f in filelist:
-        os.remove(f)
+    #filelist = [ f for f in os.listdir(".") if f.endswith(".vgm") ]
+    #for f in filelist:
+    #    os.remove(f)
     
     #pdb.set_trace()
 
@@ -172,7 +138,7 @@ def main():
         if not parse_read:
             break
         
-        obj_counter, json_obj, stream_read  = par_check(obj_counter, parse_read, obj_read)
+        obj_counter, json_obj, stream_read  = vgm_utils.par_check(obj_counter, parse_read, obj_read)
         obj_read = obj_read + json_obj
 
         if obj_counter == 0:

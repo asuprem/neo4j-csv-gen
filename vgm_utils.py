@@ -1,5 +1,7 @@
 import json
 
+_PUSH = '{'
+_POP = '}'
 
 
 
