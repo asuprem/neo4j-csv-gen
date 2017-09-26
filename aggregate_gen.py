@@ -4,9 +4,9 @@ import vgm_utils
 import json , sys, pdb, time
 
 conn_obj = sqlite3.connect('../ExtractedData/' + 'objects' + '.db')
-obj_curs = conn_obj.cursor()
 conn_rel = sqlite3.connect('../ExtractedData/' + 'relations' + '.db')
 rel_curs = conn_rel.cursor()
+obj_curs = conn_obj.cursor()
 
 object_ids = dict(obj_curs.execute('Select synset,id from synset_count'))
 relation_ids = dict(rel_curs.execute('Select synset,id from synset_count'))
