@@ -12,31 +12,6 @@ import vgm_utils
 _PUSH = '{'
 _POP = '}'
 
-'''
-def par_iterate(par_i_str):
-    for idx,item in enumerate(par_i_str):
-        if item == '{':
-            return par_i_str[idx:]
-    return ''
-
-def par_check(i_counter, i_str, obj_read):
-    # This code checsk aprenthesis and returns a complete json object for extraction
-    if not obj_read:
-        #i.e. we are starting again, so there may be gaps:
-        i_str = par_iterate(i_str)
-    for idx, item in enumerate(i_str):
-        if item == _PUSH:
-            i_counter+=1
-        if item == _POP:
-            i_counter-=1
-        if i_counter == 0:
-            try:
-                temp_json = json.loads(obj_read+i_str[:idx+1])
-                return i_counter, i_str[:idx+1], par_iterate(i_str[idx+1:])
-            except ValueError:
-                i_counter+=1
-    return i_counter, i_str, ''
-'''
 
 def json_extractor(j_obj, split_name, split_idx):
     rel_file_name   = split_name[split_idx] +   '_relations.vgm'
@@ -76,11 +51,6 @@ def json_extractor(j_obj, split_name, split_idx):
                             continue
             
     for i in range(len(j_obj['relationships'])):
-            #rel_integrity[j_obj['relationships'][i]['relationship_id']] = [j_obj['relationships'][i]['relationship_id'], \
-            #                                               j_obj['relationships'][i]['synsets'], \
-            #                                               j_obj['relationships'][i]['object_id'], \
-            #                                               j_obj['relationships'][i]['subject_id'], \
-            #                                               j_obj['relationships'][i]['predicate']]
             in_tuple = (tuple(j_obj['relationships'][i]['synsets']), \
                         j_obj['relationships'][i]['object_id'], \
                         j_obj['relationships'][i]['subject_id'], \
