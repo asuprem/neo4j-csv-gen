@@ -3,14 +3,11 @@ import json
 _PUSH = '{'
 _POP = '}'
 
-
-
 def par_iterate(par_i_str):
     for idx,item in enumerate(par_i_str):
         if item == '{':
             return par_i_str[idx:]
     return ''
-
 
 def par_check(i_counter, i_str, obj_read):
     # This code checsk aprenthesis and returns a complete json object for extraction

@@ -1,8 +1,7 @@
 from __future__ import print_function
 from shutil import copy2 as copy_func
 import json, sys, pdb, os, time
-#import sqlite3
-import vgm_utils
+
 
 #FOR RELATIONSHIPS, chunk size should be 2500. For objects, keep it small, like 500 or 1000
 #format: python /path/to/obj_db_geb.py objects/relations.json objects/relationsips
