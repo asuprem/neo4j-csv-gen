@@ -32,7 +32,7 @@ where:
 
 ### Sample:
 
-    python ../neo_gen scene_graphs.json '1,10,50,f' 'nano,small,medium,full'
+    python [neo_gen.py] [scene_graphs.json] '1,10,50,f' 'nano,small,medium,full'
 
 ### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Remove quotes from generated VGM files</span>
     sed -i 's/\"//g' *.vgm
@@ -54,11 +54,24 @@ where:
     $ sqlite3 relations.db < relation_extractor_SQL.txt > relation_count.vgm
     $ sqlite3 relations.db < relation_synset_count_SQL.txt
 
-### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating aggregate scene graph</span>
+### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating full aggregate scene graph</span>
 
-    $ python path/to/aggregate_gen.py path/to/scene_graphs.json path/to/aggregate_graph
-    $ sort -u -t ',' -k1,1 -k2,2 -k3,3 aggregate_graph.vgm -o aggregate_graph.vgm
+    $ python [aggregate_gen.py] [scene_graphs.json] [aggregate_full]
+    $ sort -u -t ',' -k1,1 -k2,2 -k3,3 aggregate_full.vgm -o aggregate_full.vgm
 
+
+### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating SSAG, OSAG IDs</span>
+
+    $ cut -d ',' -f1,2,4 aggregate_full.vgm  > subj_rel_groups.vgm
+    $ sort -u -t ',' -k1,1 -k2,2 subj_rel_groups.vgm -o subj_rel_groups.vgm
+    $ cut -d ',' -f1,3,4 aggregate_full.vgm  > obj_rel_groups.vgm
+    $ sort -u -t ',' -k1,1 -k2,2 obj_rel_groups.vgm -o obj_rel_groups.vgm
+    $ sqlite3 relations.db < subjrel_ids_SQL.txt > temptest.vgm
+    $ sqlite3 relations.db < objrel_ids_SQL.txt > temptest.vgm
+
+### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating Aggregate, SSAG, and OSAG</span>
+
+    $ python [aggregate_graph.py] [aggregate_graph_full.vgm] [aggregate] [ssag] [osag]
 
 # <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Importing into Neo4J</span>
 ```
