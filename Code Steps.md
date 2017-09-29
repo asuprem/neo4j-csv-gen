@@ -1,8 +1,12 @@
+## `NOTES`
+
+- `p/t/` denotes `path/to`. It has been shortened for readability
+
 # Visual Genome Dataset
 
 - `objects.json`        : Contains list of objects per image **[UNUSED]**
 - `relationships.json`  : Contains relations per image (with their associated objects) **[UNUSED]**
-- `scene_graphs.json`   : Contains scene graphs per image. Similar to relatioships.json
+- `scene_graphs.json`   : Contains scene graphs per image. Similar to relationships.json
 
 # Scene graphs
 
@@ -10,7 +14,7 @@
 - `[TYPE]_relations.vgm`
 - `[TYPE]_attributes.vgm`
 
-`[TYPE]` refers to the contents of the scene graph files. `[TYPE]` contains the following descriptors:
+`[TYPE]` refers to the contents of the scene graph files. `[TYPE]` can contain the following descriptors:
 
 - **nano**   :    1000 scene graphs
 - **small**  :  10,000 scene graphs
@@ -18,9 +22,9 @@
 - **large**  : 100,000 scene graphs
 - **full**   : 108,000 scene graphs (ie. all scene graphs)
 
-### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generate the Scene Graphs with:</span>
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generate the Scene Graphs with:</span>
 
-    python [neo_gen] [scene_graphs] [splitsize] [prefixes]
+    python [neo_gen.py] [scene_graphs.json] [splitsize] [prefixes]
 
 where:
 - `[neo_gen.py]` is the path to `neo_gen.py`
@@ -32,121 +36,97 @@ where:
 
 ### Sample:
 
-    python [neo_gen.py] [scene_graphs.json] '1,10,50,f' 'nano,small,medium,full'
+    python neo_gen.py scene_graphs.json '1,10,50,f' 'nano,small,medium,full'
 
-### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Remove quotes from generated VGM files</span>
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Remove quotes from generated VGM files</span>
     sed -i 's/\"//g' *.vgm
 
-### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Extracting objects, object count, and unique objects with IDS</span>
+Note that this should be run within the folder where the `vgm` files are (these would be in the same directory where `neo_gen.py` is run).
 
-    $ awk -F "\"*,\"*" '{print $2}' path/to/full_objects.vgm > path/to/object_list.vgm
-    $ sort object_list.vgm -o object_list.vgm
-    sed -i '/^$/d' object_list.vgm
-    $ sqlite3 objects.db < object_extractor_SQL.txt > object_count.vgm
-    $ sqlite3 objects.db < object_synset_count_SQL.txt
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Extracting objects, object count, and unique objects with IDS</span>
 
-### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Extracting relations, relation count, and unique relations with IDS</span>
+    $ awk -F "\"*,\"*" '{print $2}' p/t/full_objects.vgm > p/t/object_list.vgm
+    $ sort p/t/object_list.vgm -o p/t/object_list.vgm
+    $ sed -i '/^$/d' p/t/object_list.vgm
+    $ sqlite3 p/t/objects.db < [object_extractor_SQL.txt] > p/t/object_count.vgm
+    $ sqlite3 p/t/objects.db < [object_synset_count_SQL.txt]
+
+`[object_extractor_SQL]` is the path to the *object_extractor_SQL.txt* file. Similarly, `[object_synset_count_SQL]` is the path to the *object_synset_count_SQL.txt* file.
+
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Extracting relations, relation count, and unique relations with IDS</span>
 
 
-    $ awk -F "\"*,\"*" '{print $4}' path/to/full_relations.vgm > path/to/relation_list.vgm
-    $ sort relation_list.vgm -o relation_list.vgm
-    $ sed -i '/^$/d' relation_list.vgm
-    $ sqlite3 relations.db < relation_extractor_SQL.txt > relation_count.vgm
-    $ sqlite3 relations.db < relation_synset_count_SQL.txt
+    $ awk -F "\"*,\"*" '{print $4}' p/t/full_relations.vgm > p/t/relation_list.vgm
+    $ sort p/t/relation_list.vgm -o p/t/relation_list.vgm
+    $ sed -i '/^$/d' p/t/relation_list.vgm
+    $ sqlite3 p/t/relations.db < [relation_extractor_SQL.txt] > p/t/relation_count.vgm
+    $ sqlite3 p/t/relations.db < [relation_synset_count_SQL.txt]
 
-### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating full aggregate scene graph</span>
+`[relation_extractor_SQL]` is the path to the *relation_extractor_SQL.txt* file. Similarly, `[relation_synset_count_SQL]` is the path to the *relation_synset_count_SQL.txt* file.
 
-    $ python [aggregate_gen.py] [scene_graphs.json] [aggregate_full]
+
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating full aggregate scene graph</span>
+
+    $ python [reduced_relationship_gen.py] [scene_graphs.json] [aggregate_full]
     $ sort -u -t ',' -k1,1 -k2,2 -k3,3 aggregate_full.vgm -o aggregate_full.vgm
 
+where:
+- `[reduced_relationship_gen]` is the path to `reduced_relationship_gen.py`
+- `[scene_graphs]` is the path to `scene_graphs.json`
+- `[aggregate_full]` is the path to the `aggregate_full` file (the output file). Just the file name is required. The program will append the appropriate extension to the end.
 
-### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating SSAG, OSAG IDs</span>
+### Sample:
 
-    $ cut -d ',' -f1,2,4 aggregate_full.vgm  > subj_rel_groups.vgm
-    $ sort -u -t ',' -k1,1 -k2,2 subj_rel_groups.vgm -o subj_rel_groups.vgm
-    $ cut -d ',' -f1,3,4 aggregate_full.vgm  > obj_rel_groups.vgm
-    $ sort -u -t ',' -k1,1 -k2,2 obj_rel_groups.vgm -o obj_rel_groups.vgm
-    $ sqlite3 relations.db < subjrel_ids_SQL.txt > temptest.vgm
-    $ sqlite3 relations.db < objrel_ids_SQL.txt > temptest.vgm
-
-### <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating Aggregate, SSAG, and OSAG</span>
-
-    $ python [aggregate_graph.py] [aggregate_graph_full.vgm] [aggregate] [ssag] [osag]
-
-# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Importing into Neo4J</span>
-```
-:schema
-match (n) return distinct labels(n)
+    python p/t/reduced_relationship_gen.py p/t/scene_graphs.json p/t/aggregate_full
 
 
-create index on :nanoRelation(synset)
-create index on :nanoObject(synset)
-create index on :nanoObject(id)
-create index on :nanoRelation(id)
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating SSAG, OSAG IDs</span>
 
-using periodic commit 500
-load csv from "file:///nano_objects.vgm" as line
-create (a:nanoObject {id:toInteger(line[0]), synset:line[1], name:line[2], img:toInteger(line[3])})
+    $ cut -d ',' -f1,2,4 p/t/aggregate_full.vgm  > p/t/subj_rel_groups.vgm
+    $ sort -u -t ',' -k1,1 -k2,2 p/t/subj_rel_groups.vgm -o p/t/subj_rel_groups.vgm
+    $ cut -d ',' -f1,3,4 p/t/aggregate_full.vgm  > p/t/obj_rel_groups.vgm
+    $ sort -u -t ',' -k1,1 -k2,2 p/t/obj_rel_groups.vgm -o p/t/obj_rel_groups.vgm
+    $ sqlite3 p/t/relations.db < p/t/subjrel_ids_SQL.txt > p/t/temptest.vgm
+    $ sqlite3 p/t/relations.db < p/t/objrel_ids_SQL.txt > p/t/temptest.vgm
 
-using periodic commit 500
-load csv from "file:///nano_attributes.vgm" as line
-match (o:nanoObject {id:toInteger(line[0])})
-create (a:nanoAttribute {name:line[1]})-[:ATTR]->(o)
+`temptext.vgm` can be deleted afterwards. It is used to provide integrity information to the discerning user.
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating Aggregate, SSAG, and OSAG</span>
 
-using periodic commit 500
-load csv from "file:///nano_relations.vgm" as line
-match (s:nanoObject {id:toInteger(line[1])}), (o:nanoObject {id:toInteger(line[2])})
-create (s)-[:SUBJ]->(r:nanoRelation {id:toInteger(line[0]), synset:line[3], name:line[4], img:toInteger(line[5])})-[:OBJ]->(o)
-```
+    $ python [aggregate_graph.py] [aggregate_full.vgm] [aggregate] [ssag] [osag]
 
+This will generate the following files:
+- `aggregate_subj.vgm` : The complete aggregate graph with unique subject relations between nouns and predicates
+- `aggregate_obj.vgm` : The complete aggregate graph with unique object relations between predicate and nouns
+- `ssag_subj.vgm` : Subject-source aggregate graph. Unique subject relations. 
+- `ssag_obj.vgm` : Subject-source aggregate graph. Nonunique object relations.
+- `osag_subj.vgm` : Object-source aggregate graph. Nonunique subject relations.
+- `osag_obj.vgm` : Object-source aggregate graph. Unique object relations.
 
---
-```
-aggregateRelation
-aggregateObject
+### Sample:
 
-create index on :aggregateRelation(synset)
-create index on :aggregateObject(synset)
-create index on :aggregateObject(id)
-create index on :aggregateRelation(id)
+    python p/t/aggregate_graph.py p/t/aggregate_full.vgm aggregate ssag osag
 
-using periodic commit 500
-load csv from "file:///aggregate_object_ids.vgm" as line
-create (a:aggregateObject {id:toInteger(line[0]), synset:line[1], name:line[1]})
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Cleaning Aggregate, OSAG, SSAG</span>
 
-using periodic commit 500
-load csv from "file:///aggregate_relation_ids.vgm" as line
-create (a:aggregateRelation {id:toInteger(line[0]), synset:line[1], name:line[1]})
+    $ sort -u -t ',' -k1,1 -k2,2 p/t/aggregate_subj.vgm -o p/t/aggregate_subj.vgm
+    $ sort -u -t ',' -k1,1 -k2,2 p/t/aggregate_obj.vgm -o p/t/aggregate_obj.vgm
+    $ sort -u -t ',' -k1,1 -k2,2 p/t/ssag_subj.vgm -o p/t/ssag_subj.vgm
+    $ sort -u -t ',' -k1,1 -k2,2 p/t/ssag_obj.vgm -o p/t/ssag_obj.vgm
+    $ sort -u -t ',' -k1,1 -k2,2 p/t/osag_subj.vgm -o p/t/osag_subj.vgm
+    $ sort -u -t ',' -k1,1 -k2,2 p/t/osag_obj.vgm -o p/t/osag_obj.vgm
 
-using periodic commit 500
-load csv from "file:///aggregate_graph.vgm" as line
-match (s:aggregateObject {id:toInteger(line[1])}), 
-(o:aggregateObject {id:toInteger(line[2])}), 
-(r:aggregateRelation{id:toInteger(line[0])}) 
-create (s)-[:SUBJ]->(r)-[:OBJ]->(o)
-```
----
-```
-create index on :fullRelation(synset)
-create index on :fullObject(synset)
-create index on :fullObject(id)
-create index on :fullRelation(id)
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Importing Aggregate graphs into Neo4J</span>
 
-using periodic commit 500
-load csv from "file:///full_objects.vgm" as line
-create (a:fullObject {id:toInteger(line[0]), synset:line[1], name:line[2], img:toInteger(line[3])})
+    $ cat p/t/aggregate_generator_CQL.cypher | cypher-shell -u USERNAME -p PASSWORD
+    $ cat p/t/ssag_generator_CQL.cypher | cypher-shell -u USERNAME -p PASSWORD
+    $ cat p/t/osag_generator_CQL.cypher | cypher-shell -u USERNAME -p PASSWORD
 
-using periodic commit 500
-load csv from "file:///full_attributes.vgm" as line
-match (o:fullObject {id:toInteger(line[0])})
-create (a:fullAttribute {name:line[1]})-[:ATTR]->(o)
+NOTE: Neo4J must be running. 
 
-using periodic commit 500
-load csv from "file:///full_relations.vgm" as line
-match (s:fullObject {id:toInteger(line[1])}), (o:fullObject {id:toInteger(line[2])})
-create (s)-[:SUBJ]->(r:fullRelation {id:toInteger(line[0]), synset:line[3], name:line[4], img:toInteger(line[5])})-[:OBJ]->(o)
-```
---
-```
-match (n:aggregateObject {synset:'man.n.01'}),(m:aggregateObject {synset:'woman.n.01'})
-return (n)-[:SUBJ]->(:aggregateRelation)-[:OBJ]->(m)
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Importing scene graphs into Neo4J</span>
+
+    $ cat p/t/full_graph.cypher | cypher-shell -u USERNAME -p PASSWORD
+    $ cat p/t/nano_graph.cypher | cypher-shell -u USERNAME -p PASSWORD
+
+NOTE: Neo4J must be running. 
+
