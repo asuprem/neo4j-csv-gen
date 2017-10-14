@@ -89,8 +89,8 @@ def main():
         #    break
     parse_file.close()
     
-    with open(aggregate_file_name, 'w') as outfile:
-        json.dump(file_path, out_file)
+    with open(aggregate_file_name, 'w') as out_file:
+        json.dump(file_dict, out_file)
 
     #for item in file_dict:
     #    file_path = os.path.join(aggregate_folder_name,str(item)+'.vgmImage')
