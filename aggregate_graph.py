@@ -61,8 +61,6 @@ When reading each image in the json_extract, we will:
             object ID,  osag object-relation ID   <--SHOULD BE UNIQFIED
         
         NEED SOME DOCUMENTATION ON THIS AS WELL
-            
-
 '''
 
 # Here we get the new IDS and write them to the aggregate graph file
