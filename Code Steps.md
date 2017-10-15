@@ -65,6 +65,7 @@ Note that this should be run within the folder where the `vgm` files are (these 
 `[relation_extractor_SQL]` is the path to the *relation_extractor_SQL.txt* file. Similarly, `[relation_synset_count_SQL]` is the path to the *relation_synset_count_SQL.txt* file.
 
 
+
 # <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating full aggregate scene graph</span>
 
     $ python [reduced_relationship_gen.py] [scene_graphs.json] [aggregate_full]
@@ -79,6 +80,20 @@ where:
 
     python p/t/reduced_relationship_gen.py p/t/scene_graphs.json p/t/aggregate_full
 
+
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating unique ids for aggregate relations</span>
+    
+    $ sqlite3 p/t/aggregate.db < p/t/aggregate_db_id_extractor.SQL > p/t/temp_count.vgm
+    $ python lookup_creator.py p/t/scene_graphs.json p/t/aggregate_image_ids.vgm
+
+where:
+- `aggregate.db` is the aggregate database. It will be populated here.
+- `temp_count.vgm` is the 'error' output for the discerning user.
+- `lookup_creator.py` generates the json file `aggregate_image_ids.vgm`
+
+### Sample:
+
+    python lookup_creator.py p/t/scene_graphs.json p/t/aggregate_image_ids.vgm
 
 # <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating SSAG, OSAG IDs</span>
 
