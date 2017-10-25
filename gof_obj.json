@@ -1,0 +1,973 @@
+{
+    "relationships": [
+        {
+            "subject_id": 5045,
+            "predicate": "ON",
+            "relationship_id": 15927,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 5046
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "wears",
+            "relationship_id": 15928,
+            "synsets": [
+                "wear.v.01"
+            ],
+            "object_id": 5048
+        },
+        {
+            "subject_id": 5049,
+            "predicate": "has",
+            "relationship_id": 15929,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 5050
+        },
+        {
+            "subject_id": 1058507,
+            "predicate": "ON",
+            "relationship_id": 15930,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 1058508
+        },
+        {
+            "subject_id": 5055,
+            "predicate": "ON",
+            "relationship_id": 15931,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 1058534
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "has",
+            "relationship_id": 15932,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 1058511
+        },
+        {
+            "subject_id": 1058534,
+            "predicate": "next to",
+            "relationship_id": 15933,
+            "synsets": [
+                "next.r.01"
+            ],
+            "object_id": 1058539
+        },
+        {
+            "subject_id": 1058515,
+            "predicate": "has",
+            "relationship_id": 15934,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 5060
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "has",
+            "relationship_id": 15935,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 1058518
+        },
+        {
+            "subject_id": 1058519,
+            "predicate": "ON",
+            "relationship_id": 15936,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 1058534
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "wears",
+            "relationship_id": 15937,
+            "synsets": [
+                "wear.v.01"
+            ],
+            "object_id": 5048
+        },
+        {
+            "subject_id": 1058532,
+            "predicate": "has",
+            "relationship_id": 15938,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 1058525
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "has",
+            "relationship_id": 15939,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 1058511
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "wears",
+            "relationship_id": 15940,
+            "synsets": [
+                "wear.v.01"
+            ],
+            "object_id": 1058528
+        },
+        {
+            "subject_id": 1058532,
+            "predicate": "has",
+            "relationship_id": 15941,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 1058530
+        },
+        {
+            "subject_id": 1058532,
+            "predicate": "has",
+            "relationship_id": 15942,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 1058531
+        },
+        {
+            "subject_id": 5051,
+            "predicate": "parked on",
+            "relationship_id": 15943,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 1058534
+        },
+        {
+            "subject_id": 1058535,
+            "predicate": "parked on",
+            "relationship_id": 15944,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 1058534
+        },
+        {
+            "subject_id": 1058536,
+            "predicate": "parked on",
+            "relationship_id": 15945,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 1058539
+        },
+        {
+            "subject_id": 1058515,
+            "predicate": "parked on",
+            "relationship_id": 15946,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 1058539
+        },
+        {
+            "subject_id": 1058535,
+            "predicate": "ON",
+            "relationship_id": 4265923,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 3798575
+        },
+        {
+            "subject_id": 1058519,
+            "predicate": "behind",
+            "relationship_id": 3186256,
+            "synsets": [
+                "behind.r.01"
+            ],
+            "object_id": 1058532
+        },
+        {
+            "subject_id": 1058540,
+            "predicate": "holding",
+            "relationship_id": 3186257,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 1058541
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "WEARING",
+            "relationship_id": 3186258,
+            "synsets": [
+                "wear.v.01"
+            ],
+            "object_id": 1058511
+        },
+        {
+            "subject_id": 1058532,
+            "predicate": "holding",
+            "relationship_id": 3186259,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 1058541
+        },
+        {
+            "subject_id": 1058544,
+            "predicate": "near",
+            "relationship_id": 3186260,
+            "synsets": [
+                "about.r.07"
+            ],
+            "object_id": 1058545
+        },
+        {
+            "subject_id": 1058532,
+            "predicate": "WEARING",
+            "relationship_id": 3186261,
+            "synsets": [
+                "wear.v.01"
+            ],
+            "object_id": 1058525
+        },
+        {
+            "subject_id": 1058544,
+            "predicate": "near",
+            "relationship_id": 3186262,
+            "synsets": [
+                "about.r.07"
+            ],
+            "object_id": 1058545
+        },
+        {
+            "subject_id": 1058511,
+            "predicate": "ON",
+            "relationship_id": 3186263,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 1058529
+        },
+        {
+            "subject_id": 3798576,
+            "predicate": "holding",
+            "relationship_id": 4265924,
+            "synsets": [
+                "have.v.01"
+            ],
+            "object_id": 1058541
+        },
+        {
+            "subject_id": 3798577,
+            "predicate": "WEARING",
+            "relationship_id": 4265925,
+            "synsets": [
+                "wear.v.01"
+            ],
+            "object_id": 1058518
+        },
+        {
+            "subject_id": 1058548,
+            "predicate": "along",
+            "relationship_id": 4265926,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 3798578
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "IN",
+            "relationship_id": 3186264,
+            "synsets": [
+                "in.r.01"
+            ],
+            "object_id": 1058511
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "WEARING",
+            "relationship_id": 3186265,
+            "synsets": [
+                "wear.v.01"
+            ],
+            "object_id": 1058528
+        },
+        {
+            "subject_id": 1058519,
+            "predicate": "on top of",
+            "relationship_id": 3186266,
+            "synsets": [
+                "along.r.01"
+            ],
+            "object_id": 1058539
+        },
+        {
+            "subject_id": 1058545,
+            "predicate": "next to",
+            "relationship_id": 3186267,
+            "synsets": [
+                "next.r.01"
+            ],
+            "object_id": 1058539
+        },
+        {
+            "subject_id": 1058529,
+            "predicate": "WEARING",
+            "relationship_id": 3186268,
+            "synsets": [
+                "wear.v.01"
+            ],
+            "object_id": 1058518
+        },
+        {
+            "subject_id": 1058544,
+            "predicate": "behind",
+            "relationship_id": 3186269,
+            "synsets": [
+                "behind.r.01"
+            ],
+            "object_id": 1058529
+        },
+        {
+            "subject_id": 1058549,
+            "predicate": "by",
+            "relationship_id": 3186270,
+            "synsets": [
+                "by.r.01"
+            ],
+            "object_id": 1058534
+        },
+        {
+            "subject_id": 1058532,
+            "predicate": "WEARING",
+            "relationship_id": 3186271,
+            "synsets": [
+                "wear.v.01"
+            ],
+            "object_id": 1058530
+        },
+        {
+            "subject_id": 1058508,
+            "predicate": "with",
+            "relationship_id": 4265927,
+            "synsets": [],
+            "object_id": 3798579
+        }
+    ],
+    "image_id": 1,
+    "objects": [
+        {
+            "h": 339,
+            "object_id": 1058498,
+            "synsets": [
+                "clock.n.01"
+            ],
+            "w": 79,
+            "x": 421,
+            "y": 91,
+            "attributes": [
+                "green",
+                "tall"
+            ],
+            "names": [
+                "clock"
+            ]
+        },
+        {
+            "h": 262,
+            "object_id": 5046,
+            "synsets": [
+                "street.n.01"
+            ],
+            "w": 714,
+            "x": 77,
+            "y": 328,
+            "attributes": [
+                "sidewalk"
+            ],
+            "names": [
+                "street"
+            ]
+        },
+        {
+            "h": 192,
+            "object_id": 5045,
+            "synsets": [
+                "shade.n.01"
+            ],
+            "w": 274,
+            "y": 338,
+            "x": 119,
+            "names": [
+                "shade"
+            ]
+        },
+        {
+            "h": 262,
+            "object_id": 1058529,
+            "synsets": [
+                "man.n.01"
+            ],
+            "w": 60,
+            "y": 249,
+            "x": 238,
+            "names": [
+                "man"
+            ]
+        },
+        {
+            "h": 26,
+            "object_id": 5048,
+            "synsets": [
+                "gym_shoe.n.01"
+            ],
+            "w": 52,
+            "x": 243,
+            "y": 489,
+            "attributes": [
+                "grey"
+            ],
+            "names": [
+                "sneakers"
+            ]
+        },
+        {
+            "h": 15,
+            "object_id": 5050,
+            "synsets": [
+                "headlight.n.01"
+            ],
+            "w": 23,
+            "x": 514,
+            "y": 366,
+            "attributes": [
+                "off"
+            ],
+            "names": [
+                "headlight"
+            ]
+        },
+        {
+            "h": 98,
+            "object_id": 5049,
+            "synsets": [
+                "car.n.01"
+            ],
+            "w": 74,
+            "y": 315,
+            "x": 479,
+            "names": [
+                "car"
+            ]
+        },
+        {
+            "h": 34,
+            "object_id": 5051,
+            "synsets": [
+                "bicycle.n.01"
+            ],
+            "w": 28,
+            "x": 318,
+            "y": 319,
+            "attributes": [
+                "parked",
+                "far away"
+            ],
+            "names": [
+                "bike"
+            ]
+        },
+        {
+            "h": 35,
+            "object_id": 1058535,
+            "synsets": [
+                "bicycle.n.01"
+            ],
+            "w": 29,
+            "x": 334,
+            "y": 319,
+            "attributes": [
+                "parked",
+                "far away",
+                "chained"
+            ],
+            "names": [
+                "bike"
+            ]
+        },
+        {
+            "h": 182,
+            "object_id": 1058507,
+            "synsets": [
+                "sign.n.02"
+            ],
+            "w": 88,
+            "x": 118,
+            "y": 13,
+            "attributes": [
+                "black"
+            ],
+            "names": [
+                "sign"
+            ]
+        },
+        {
+            "h": 536,
+            "object_id": 1058508,
+            "synsets": [
+                "building.n.01"
+            ],
+            "w": 218,
+            "x": 1,
+            "y": 2,
+            "attributes": [
+                "tall",
+                "brick",
+                "made of bricks"
+            ],
+            "names": [
+                "building"
+            ]
+        },
+        {
+            "h": 327,
+            "object_id": 5055,
+            "synsets": [
+                "trunk.n.01"
+            ],
+            "w": 87,
+            "y": 234,
+            "x": 622,
+            "names": [
+                "tree trunk"
+            ]
+        },
+        {
+            "h": 266,
+            "object_id": 1058534,
+            "synsets": [
+                "sidewalk.n.01"
+            ],
+            "w": 722,
+            "x": 77,
+            "y": 331,
+            "attributes": [
+                "brick"
+            ],
+            "names": [
+                "sidewalk"
+            ]
+        },
+        {
+            "h": 101,
+            "object_id": 1058511,
+            "synsets": [
+                "shirt.n.01"
+            ],
+            "w": 59,
+            "x": 241,
+            "y": 289,
+            "attributes": [
+                "red",
+                "orange"
+            ],
+            "names": [
+                "shirt"
+            ]
+        },
+        {
+            "h": 233,
+            "object_id": 1058539,
+            "synsets": [
+                "street.n.01"
+            ],
+            "w": 440,
+            "x": 358,
+            "y": 283,
+            "attributes": [
+                "clean"
+            ],
+            "names": [
+                "street"
+            ]
+        },
+        {
+            "h": 174,
+            "object_id": 1058515,
+            "synsets": [
+                "car.n.01"
+            ],
+            "w": 91,
+            "x": 708,
+            "y": 342,
+            "attributes": [
+                "white",
+                "parked"
+            ],
+            "names": [
+                "car"
+            ]
+        },
+        {
+            "h": 170,
+            "object_id": 5060,
+            "synsets": [
+                "back.n.01"
+            ],
+            "w": 67,
+            "y": 339,
+            "x": 721,
+            "names": [
+                "back"
+            ]
+        },
+        {
+            "h": 12,
+            "object_id": 1058518,
+            "synsets": [
+                "spectacles.n.01"
+            ],
+            "w": 20,
+            "y": 268,
+            "x": 271,
+            "names": [
+                "glasses"
+            ]
+        },
+        {
+            "h": 143,
+            "object_id": 1058519,
+            "synsets": [
+                "parking_meter.n.01"
+            ],
+            "w": 32,
+            "x": 574,
+            "y": 327,
+            "attributes": [
+                "orange"
+            ],
+            "names": [
+                "parking meter"
+            ]
+        },
+        {
+            "h": 34,
+            "object_id": 1058525,
+            "synsets": [
+                "shoe.n.01"
+            ],
+            "w": 46,
+            "x": 391,
+            "y": 481,
+            "attributes": [
+                "brown"
+            ],
+            "names": [
+                "shoes"
+            ]
+        },
+        {
+            "h": 251,
+            "object_id": 1058532,
+            "synsets": [
+                "man.n.01"
+            ],
+            "w": 75,
+            "y": 264,
+            "x": 372,
+            "names": [
+                "man"
+            ]
+        },
+        {
+            "h": 118,
+            "object_id": 1058528,
+            "synsets": [
+                "trouser.n.01"
+            ],
+            "w": 38,
+            "x": 245,
+            "y": 384,
+            "attributes": [
+                "black"
+            ],
+            "names": [
+                "pants"
+            ]
+        },
+        {
+            "h": 97,
+            "object_id": 1058530,
+            "synsets": [
+                "jacket.n.01"
+            ],
+            "w": 89,
+            "x": 356,
+            "y": 296,
+            "attributes": [
+                "gray",
+                "grey"
+            ],
+            "names": [
+                "jacket"
+            ]
+        },
+        {
+            "h": 128,
+            "object_id": 1058531,
+            "synsets": [
+                "trouser.n.01"
+            ],
+            "w": 54,
+            "x": 382,
+            "y": 369,
+            "attributes": [
+                "gray",
+                "grey"
+            ],
+            "names": [
+                "pants"
+            ]
+        },
+        {
+            "h": 185,
+            "object_id": 1058536,
+            "synsets": [],
+            "w": 265,
+            "x": 521,
+            "y": 271,
+            "attributes": [
+                "white"
+            ],
+            "names": [
+                "work truck"
+            ]
+        },
+        {
+            "h": 189,
+            "object_id": 3798575,
+            "synsets": [
+                "sidewalk.n.01"
+            ],
+            "w": 50,
+            "y": 318,
+            "x": 343,
+            "names": [
+                "sidewalk"
+            ]
+        },
+        {
+            "h": 9,
+            "object_id": 1058541,
+            "synsets": [
+                "chin.n.01"
+            ],
+            "w": 11,
+            "x": 399,
+            "y": 288,
+            "attributes": [
+                "raised"
+            ],
+            "names": [
+                "chin"
+            ]
+        },
+        {
+            "h": 250,
+            "object_id": 1058540,
+            "synsets": [
+                "guy.n.01"
+            ],
+            "w": 82,
+            "y": 264,
+            "x": 369,
+            "names": [
+                "guy"
+            ]
+        },
+        {
+            "h": 134,
+            "object_id": 1058542,
+            "synsets": [
+                "van.n.05"
+            ],
+            "w": 233,
+            "x": 529,
+            "y": 298,
+            "attributes": [
+                "parked",
+                "white"
+            ],
+            "names": [
+                "van"
+            ]
+        },
+        {
+            "h": 533,
+            "object_id": 1058543,
+            "synsets": [
+                "wall.n.01"
+            ],
+            "w": 134,
+            "x": 0,
+            "y": 1,
+            "attributes": [
+                "grey"
+            ],
+            "names": [
+                "wall"
+            ]
+        },
+        {
+            "h": 360,
+            "object_id": 1058545,
+            "synsets": [
+                "tree.n.01"
+            ],
+            "w": 176,
+            "y": 0,
+            "x": 249,
+            "names": [
+                "tree"
+            ]
+        },
+        {
+            "h": 35,
+            "object_id": 1058544,
+            "synsets": [
+                "bicycle.n.01"
+            ],
+            "w": 40,
+            "y": 319,
+            "x": 321,
+            "names": [
+                "bikes"
+            ]
+        },
+        {
+            "h": 43,
+            "object_id": 1058546,
+            "synsets": [
+                "arm.n.01"
+            ],
+            "w": 32,
+            "x": 368,
+            "y": 283,
+            "attributes": [
+                "raised"
+            ],
+            "names": [
+                "arm"
+            ]
+        },
+        {
+            "h": 66,
+            "object_id": 1058547,
+            "synsets": [
+                "shirt.n.01"
+            ],
+            "w": 37,
+            "x": 384,
+            "y": 306,
+            "attributes": [
+                "grey"
+            ],
+            "names": [
+                "shirt"
+            ]
+        },
+        {
+            "h": 248,
+            "object_id": 3798576,
+            "synsets": [
+                "man.n.01"
+            ],
+            "w": 97,
+            "y": 264,
+            "x": 362,
+            "names": [
+                "man"
+            ]
+        },
+        {
+            "h": 264,
+            "object_id": 3798577,
+            "synsets": [
+                "man.n.01"
+            ],
+            "w": 72,
+            "y": 251,
+            "x": 230,
+            "names": [
+                "man"
+            ]
+        },
+        {
+            "h": 218,
+            "object_id": 3798578,
+            "synsets": [
+                "road.n.01"
+            ],
+            "w": 340,
+            "y": 295,
+            "x": 435,
+            "names": [
+                "road"
+            ]
+        },
+        {
+            "h": 430,
+            "object_id": 1058548,
+            "synsets": [],
+            "w": 41,
+            "y": 63,
+            "x": 537,
+            "names": [
+                "lamp post"
+            ]
+        },
+        {
+            "h": 557,
+            "object_id": 1058549,
+            "synsets": [
+                "tree.n.01"
+            ],
+            "w": 606,
+            "x": 190,
+            "y": 0,
+            "attributes": [
+                "sparse"
+            ],
+            "names": [
+                "trees"
+            ]
+        },
+        {
+            "h": 148,
+            "object_id": 3798579,
+            "synsets": [
+                "window.n.01"
+            ],
+            "w": 173,
+            "y": 4,
+            "x": 602,
+            "names": [
+                "windows"
+            ]
+        }
+    ]
+}
