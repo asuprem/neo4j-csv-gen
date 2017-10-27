@@ -1,0 +1,58 @@
+> wordnet to glove
+Use simple embeddings to convert each synset into a word embedding
+    > take synset  
+    > get the lemmas
+    > average the lemma vectors to get the embedding vector (evector)
+
+
+
+
+> given NLP query, generate approximates
+Take embedding and store in sqlite3 database
+    > for a graph query, for each word, extract it's simpe embedding
+    > i.e. just look it up in the database
+    > Now each node in the query has an evector
+
+    >follow standard procedure to generate wordnet approximates
+    >follow standard procedure to retrieve the images
+    >follow standard procedure to build inverted index
+    
+
+> Give results, get their node scores
+For each image
+    > Look up the synset evector in the synset-evector database (or dictionary)
+    > assign to each node a score
+    > Also, when having retried them, for each object index on a node, note the triplets it occurs in
+        > This requires labeling each triplet with its own triplet ID
+
+
+> Collapse and update the scores
+This is complicated. 
+
+For each top-level query, generate the canonical forms
+For each node in the canoical form, assign a numerical index
+Collapse the canonical form to get the id set for each node in the top-level query, and save it
+    > We collapse by lookup. For each node in a triplet, we see if it occurs in any other triplet.
+    > Then we join thm together
+
+When retrieving results for the canonical form, store  object id and local numeric id with the retrieved
+
+Now we have, for each retrieved node, its object id and which canonical it is grounded to.
+
+
+> Delete copies of triplets
+Need a data structure that takes in (hashed) triplets
+    > And upon request, adds a triplet, or deletes a triplet from its representation
+
+
+
+> Get score of query (including nulls)
+    > For each null node, let it be 1. Sum all values together, and normalize (by dividing by number of nodes)
+
+
+> Get score of image (k-dim vector)
+    > Score for each query -> k-DIM vector
+
+> Distance from origin (with some skew parameter?) - Mahalonobis Distance
+Or weighted euclidean: https://math.stackexchange.com/questions/917066/calculating-weighted-euclidean-distance-with-given-weights
+> Rank the images
