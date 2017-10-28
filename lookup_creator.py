@@ -21,6 +21,7 @@ temp_aggregate_ids = None
 
 
 def json_extractor(obj_read, file_dict):
+    pdb.set_trace()
     j_obj = json.loads(obj_read)
     obj_integrity = {}
     rel_integrity = {}
@@ -29,15 +30,20 @@ def json_extractor(obj_read, file_dict):
         if j_obj['objects'][i]['synsets'] and j_obj['objects'][i]['synsets'][0] in object_ids:
             obj_integrity[j_obj['objects'][i]['object_id']] = object_ids[j_obj['objects'][i]['synsets'][0]]
             
-    
+    pdb.set_trace()
     for i in range(len(j_obj['relationships'])):
         if j_obj['relationships'][i]['synsets'] and j_obj['relationships'][i]['synsets'][0] in relation_ids:
             if j_obj['relationships'][i]['subject_id'] in obj_integrity and j_obj['relationships'][i]['object_id'] in obj_integrity:
+                # Here we are converting the subject/object IDs to their aggregate_ids (i.e. 1 id for each each unique subj/obj)
                 in_tuple = (relation_ids[j_obj['relationships'][i]['synsets'][0]], \
                             obj_integrity[j_obj['relationships'][i]['subject_id']], \
                             obj_integrity[j_obj['relationships'][i]['object_id']])
+                # Need to prevent the overwrite, i.e. if the same relation is seen, append, not replace
+                if in_tuple in rel_integrity:
+                    pdb.set_trace()
                 rel_integrity[in_tuple] = aggregate_ids[in_tuple]
     # Here we need to 
+    pdb.set_trace()
     for item in rel_integrity:
         #file_path = os.path.join(aggregate_folder_name,str(rel_integrity[item])+'.vgmImage')
         if rel_integrity[item] not in file_dict:
@@ -47,7 +53,7 @@ def json_extractor(obj_read, file_dict):
 
         #with open(file_path, 'a+') as aggregate_file:
         #file_dict[file_path].write(str(j_obj['image_id']) + '\n')
-
+    pdb.set_trace()
 
 
 
