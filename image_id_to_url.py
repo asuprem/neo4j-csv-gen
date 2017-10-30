@@ -5,7 +5,7 @@ import json, sys, pdb, os, time
 import vgm_utils
 
 #FOR RELATIONSHIPS, chunk size should be 2500. For objects, keep it small, like 500 or 1000
-#format: python image_data.json 500 image_urls.json
+#format: python image_data.json 50
 
 _PUSH = '{'
 _POP = '}'
