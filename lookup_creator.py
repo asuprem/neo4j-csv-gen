@@ -23,31 +23,38 @@ temp_aggregate_ids = None
 def json_extractor(obj_read, file_dict):
     j_obj = json.loads(obj_read)
     obj_integrity = {}
-    rel_integrity = {}
+    rel_integrity = []
     #Get the new IDS for the objects.
     for i in range(len(j_obj['objects'])):
         if j_obj['objects'][i]['synsets'] and j_obj['objects'][i]['synsets'][0] in object_ids:
             obj_integrity[j_obj['objects'][i]['object_id']] = object_ids[j_obj['objects'][i]['synsets'][0]]
             
-    
     for i in range(len(j_obj['relationships'])):
         if j_obj['relationships'][i]['synsets'] and j_obj['relationships'][i]['synsets'][0] in relation_ids:
             if j_obj['relationships'][i]['subject_id'] in obj_integrity and j_obj['relationships'][i]['object_id'] in obj_integrity:
+                # Here we are converting the subject/object IDs to their aggregate_ids (i.e. 1 id for each each unique subj/obj)
                 in_tuple = (relation_ids[j_obj['relationships'][i]['synsets'][0]], \
                             obj_integrity[j_obj['relationships'][i]['subject_id']], \
                             obj_integrity[j_obj['relationships'][i]['object_id']])
-                rel_integrity[in_tuple] = aggregate_ids[in_tuple]
-    # Here we need to 
+                # Need to prevent the overwrite, i.e. if the same relation is seen, append, not replace
+                
+                rel_integrity.append(   (in_tuple, 
+                                        aggregate_ids[in_tuple], 
+                                        j_obj['relationships'][i]['subject_id'],
+                                        j_obj['relationships'][i]['object_id'],
+                                        j_obj['relationships'][i]['relationship_id']))
+    # Key
+    # item[0] -> the relation, in terms of aggregate IDS
+    # item[1] -> unique relation ID
+    # item[2] -> local subject_id
+    # item[3] -> local object_id
+    # item[4] -> local relationship_id
+
     for item in rel_integrity:
         #file_path = os.path.join(aggregate_folder_name,str(rel_integrity[item])+'.vgmImage')
-        if rel_integrity[item] not in file_dict:
-            file_dict[rel_integrity[item]] = [str(j_obj['image_id'])]
-        else:
-            file_dict[rel_integrity[item]].append(str(j_obj['image_id']))
-
-        #with open(file_path, 'a+') as aggregate_file:
-        #file_dict[file_path].write(str(j_obj['image_id']) + '\n')
-
+        if item[1] not in file_dict:
+            file_dict[item[1]] = []
+        file_dict[item[1]].append((str(j_obj['image_id']), item[2],item[4],item[3]))
 
 
 
@@ -85,13 +92,17 @@ def main():
             obj_read=''
 
         #This exists for debugging purposes -> to early stop the files for quicker verification
-        #if find_counter > 1000:
+        #if find_counter > 50:
         #    break
     parse_file.close()
     
     with open(aggregate_file_name, 'w') as out_file:
-        json.dump(file_dict, out_file)
-
+        out_file.write('[')
+        for aggregate_id in file_dict:
+            aggregate = json.dumps({aggregate_id:file_dict[aggregate_id]})
+            out_file.write(aggregate+',')
+        out_file.seek(-1,os.SEEK_CUR)
+        out_file.write(']')
     #for item in file_dict:
     #    file_path = os.path.join(aggregate_folder_name,str(item)+'.vgmImage')
     #    with open(file_path,'w') as file_write:

@@ -2,6 +2,10 @@ from __future__ import print_function
 from shutil import copy2 as copy_func
 import json, sys, pdb, os, time
 
+#THis finds all synsets....I thing????
+
+#Okay what this does - i guess given object, or relation, it finds all object or relation synsets and stores them in the requisite json file...I guess
+
 
 #FOR RELATIONSHIPS, chunk size should be 2500. For objects, keep it small, like 500 or 1000
 #format: python /path/to/obj_db_geb.py objects/relations.json objects/relationsips
