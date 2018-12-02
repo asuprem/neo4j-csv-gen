@@ -48,3 +48,7 @@ Temporary Items
 
 # Python compiled:
 *.pyc
+*.vgm
+data/*.json
+image_data.json
+*.zip
