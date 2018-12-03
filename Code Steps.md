@@ -145,3 +145,17 @@ NOTE: Neo4J must be running.
 
 NOTE: Neo4J must be running. 
 
+# <span style='color:white; background-color:olive;padding-left:20px;padding-right:20px'>Generating the Synset Embeddings</span>
+This is a simple synset-to-vector conversion. For each synset, we get their lemmas, and take the Embeddings Vector for those lemmas. Then we average the Embeddings vectors for the lemmas for each synset to get the synset Embeddings vector This is really not the best method for synset embeddings, as we are simplifying complex language phenomena, namely word disambiguation, into a simple averaging method. 
+
+
+    $ python synset_to_glove.py
+
+Look at the code file for where the files should be and what the output file looks like (i.e. `embeddings.vgm`)
+
+### Sample:
+
+    python p/t/aggregate_graph.py p/t/aggregate_full.vgm aggregate ssag osag
+
+
+TODO <-- add info about wn_synset_embeddings and  full_aggregate_image_ids>

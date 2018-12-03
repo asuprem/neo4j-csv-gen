@@ -1,7 +1,18 @@
+import sqlite3
 import json
 
 _PUSH = '{'
 _POP = '}'
+
+def get_cursors(path):
+    conn_obj = sqlite3.connect(path)
+    return conn_obj.cursor()
+
+def get_node_ids(path):
+    cursor = get_cursors(path)
+    ids = dict(cursor.execute('Select synset,id from synset_count'))
+    cursor.close()
+    return ids
 
 def par_iterate(par_i_str):
     for idx,item in enumerate(par_i_str):
